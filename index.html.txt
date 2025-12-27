@@ -1,0 +1,706 @@
+
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>bebelle & nandinha — um conto nosso</title>
+
+  <style>
+    :root{
+      --bg-0:#07040c;
+      --bg-1:#0f0820;
+      --card:#120a24cc;
+      --card-2:#0e1b14cc;
+
+      --purple-1:#7c3aed;
+      --purple-2:#a855f7;
+      --purple-3:#2e1065;
+
+      --green-1:#22c55e;
+      --green-2:#34d399;
+      --green-3:#052e1a;
+
+      --text:#f5f3ff;
+      --muted:#c7c3e6;
+
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+
+      --radius: 18px;
+      --radius2: 28px;
+      --max: 980px;
+
+      --grad: radial-gradient(1200px 700px at 20% 10%, rgba(124,58,237,.35), transparent 60%),
+              radial-gradient(1000px 700px at 80% 30%, rgba(34,197,94,.28), transparent 55%),
+              radial-gradient(900px 600px at 60% 90%, rgba(168,85,247,.22), transparent 55%),
+              linear-gradient(180deg, var(--bg-0), var(--bg-1));
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue";
+      color:var(--text);
+      background: var(--grad);
+      overflow-x:hidden;
+      text-transform:lowercase;
+    }
+
+    .stars{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.35;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.7), transparent 60%),
+        radial-gradient(1px 1px at 140px 90px, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(1px 1px at 220px 160px, rgba(255,255,255,.45), transparent 60%),
+        radial-gradient(2px 2px at 340px 220px, rgba(255,255,255,.6), transparent 60%),
+        radial-gradient(1px 1px at 520px 120px, rgba(255,255,255,.4), transparent 60%),
+        radial-gradient(1px 1px at 720px 260px, rgba(255,255,255,.4), transparent 60%);
+      background-size: 800px 400px;
+      animation: drift 18s linear infinite;
+      filter: blur(.2px);
+    }
+    @keyframes drift{ from{transform:translateY(0)} to{transform:translateY(20px)} }
+
+    a{color:inherit}
+    .wrap{width:min(var(--max), 92vw); margin:0 auto; padding:28px 0 80px;}
+
+    header{
+      position:sticky; top:0;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,4,12,.85), rgba(7,4,12,.55));
+      border-bottom:1px solid var(--border);
+      z-index:50;
+    }
+    .topbar{
+      width:min(var(--max), 92vw);
+      margin:0 auto;
+      padding:14px 0;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .brand{display:flex; align-items:center; gap:10px; user-select:none;}
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.7), transparent 60%),
+        linear-gradient(135deg, rgba(124,58,237,.9), rgba(34,197,94,.85));
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand h1{margin:0; font-size:14px; letter-spacing:.6px; font-weight:700;}
+    .brand span{display:block; font-size:12px; color:var(--muted); font-weight:500; margin-top:1px;}
+
+    nav{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+    .pill{
+      padding:9px 12px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-size:12px;
+      color:var(--muted);
+      transition: transform .12s ease, background .12s ease, color .12s ease, border-color .12s ease;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(124,58,237,.14);
+      border-color: rgba(168,85,247,.35);
+      color: var(--text);
+    }
+
+    .hero{
+      margin-top:26px;
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      padding:26px;
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(800px 400px at 15% 10%, rgba(124,58,237,.25), transparent 60%),
+        radial-gradient(700px 380px at 90% 20%, rgba(34,197,94,.18), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(135deg, rgba(124,58,237,.14), rgba(34,197,94,.10), rgba(168,85,247,.08));
+      filter: blur(28px);
+      opacity:.7;
+      pointer-events:none;
+    }
+    .hero > *{position:relative; z-index:2}
+
+    .kicker{display:flex; gap:10px; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:13px;}
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: linear-gradient(135deg, var(--purple-2), var(--green-2));
+      box-shadow: 0 0 0 4px rgba(255,255,255,.06);
+    }
+    .hero h2{margin:12px 0 10px; font-size:30px; line-height:1.1;}
+    .hero p{margin:0; max-width: 70ch; color: var(--muted); font-size:15px; line-height:1.7;}
+
+    .metaLine{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: rgba(255,255,255,.88);
+      font-size:12px;
+    }
+    .tag{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+    }
+    .tag strong{
+      color: rgba(255,255,255,.95);
+      font-weight:700;
+    }
+
+    .controls{margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .btn{
+      border:none;
+      border-radius: 999px;
+      padding:10px 14px;
+      font-size:12px;
+      color:var(--text);
+      cursor:pointer;
+      background: linear-gradient(135deg, rgba(124,58,237,.85), rgba(34,197,94,.55));
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.12);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter:brightness(1.05) }
+    .btn.secondary{ background: rgba(255,255,255,.08); color: var(--muted); }
+
+    .grid{margin-top:18px; display:grid; grid-template-columns: 1.1fr .9fr; gap:18px;}
+    @media (max-width: 860px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .pad{padding:18px}
+
+    .audioBox{
+      background:
+        radial-gradient(700px 420px at 20% 10%, rgba(34,197,94,.20), transparent 62%),
+        radial-gradient(700px 420px at 80% 10%, rgba(124,58,237,.22), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    }
+    .audioTitle{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+    .audioTitle h3{margin:0; font-size:14px;}
+    .audioTitle small{color:var(--muted);}
+
+    .notice{margin-top:10px; color: var(--muted); font-size:12px; line-height:1.6;}
+    audio{width:100%; margin-top:12px; filter: drop-shadow(0 12px 25px rgba(0,0,0,.22)); border-radius: 14px;}
+
+    .chapters{margin-top:26px; display:grid; gap:16px;}
+    .chapter{
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      background:
+        radial-gradient(700px 420px at 15% 15%, rgba(124,58,237,.18), transparent 62%),
+        radial-gradient(700px 420px at 85% 25%, rgba(34,197,94,.14), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .chapterHead{
+      padding:16px 18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .chapterHead h3{margin:0; font-size:16px;}
+    .badge{
+      font-size:11px;
+      color: rgba(255,255,255,.9);
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(124,58,237,.12);
+      white-space:nowrap;
+    }
+    .chapterBody{padding:16px 18px 18px;}
+    .chapterBody p{margin:0 0 12px; color: var(--muted); line-height:1.85; font-size:14px;}
+    .chapterBody p:last-child{margin-bottom:0}
+
+    .quote{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(135deg, rgba(34,197,94,.10), rgba(124,58,237,.10));
+      color: rgba(255,255,255,.88);
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .gallery{margin-top:26px;}
+    .gallery h3{margin:0 0 10px; font-size:16px; color: var(--text);}
+    .photos{display:grid; grid-template-columns: repeat(12, 1fr); gap:10px;}
+    .ph{
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 14px 35px rgba(0,0,0,.35);
+      position:relative;
+    }
+    .ph img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.01);
+      transition: transform .18s ease, filter .18s ease;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .ph:hover img{ transform: scale(1.05) }
+    .ph::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.45));
+      opacity:.65;
+      pointer-events:none;
+    }
+
+    .span-6{grid-column: span 6}
+    .span-4{grid-column: span 4}
+    .span-8{grid-column: span 8}
+    .span-12{grid-column: span 12}
+    .tall{aspect-ratio: 3/4}
+    .wide{aspect-ratio: 16/10}
+    .square{aspect-ratio: 1/1}
+    @media (max-width: 860px){
+      .span-8,.span-6,.span-4{grid-column: span 12}
+    }
+
+    footer{
+      margin-top:28px;
+      padding-top:18px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.7;
+    }
+
+    .floatingHeart{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:60;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10, 8, 18, .72);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      cursor:pointer;
+      user-select:none;
+    }
+    .heartIcon{
+      width:22px;height:22px;border-radius:8px;
+      background: linear-gradient(135deg, rgba(168,85,247,.9), rgba(34,197,94,.75));
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.16);
+    }
+    .floatingHeart span{font-size:12px; color: var(--muted);}
+
+    .timeline{
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      overflow:hidden;
+      background: rgba(255,255,255,.04);
+    }
+    .timelineRow{
+      display:flex;
+      gap:12px;
+      padding:12px 14px;
+      align-items:flex-start;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .timelineRow:first-child{border-top:none}
+    .tDate{
+      min-width:92px;
+      font-size:12px;
+      color: rgba(255,255,255,.92);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, rgba(124,58,237,.12), rgba(34,197,94,.10));
+      text-align:center;
+      white-space:nowrap;
+    }
+    .tText{
+      font-size:13px;
+      line-height:1.7;
+      color: var(--muted);
+    }
+    .tText b{color: rgba(255,255,255,.92); font-weight:700;}
+  </style>
+</head>
+
+<body>
+  <div class="stars"></div>
+
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>bebelle & nandinha</h1>
+          <span>um conto em capítulos, do jeitinho que eu sinto</span>
+        </div>
+      </div>
+
+      <nav>
+        <a class="pill" href="#capitulos">capítulos</a>
+        <a class="pill" href="#fotos">nossas fotos</a>
+        <a class="pill" href="#musica">música</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="topo">
+      <div class="kicker"><span class="dot"></span> <span>para a minha nandinha, com todo o amor da sua bebelle</span></div>
+      <h2>um amor que começou na escola… e virou destino em porto seguro</h2>
+      <p>
+        esse site é um presentinho pra guardar a gente em um lugar que não apaga.
+        um conto pequeno, mas com um amor enorme: o nosso. 💜💚
+      </p>
+
+      <div class="metaLine" aria-label="datas importantes">
+        <span class="tag"><strong>primeiro beijo:</strong> 28/09</span>
+        <span class="tag"><strong>pedido de namoro:</strong> 15/01</span>
+        <span class="tag"><strong>onde tudo ganhou força:</strong> viagem de formatura (porto seguro)</span>
+      </div>
+
+      <div class="controls">
+        <button class="btn" onclick="scrollToId('capitulos')">ler agora</button>
+        <button class="btn secondary" onclick="toggleAll(true)">abrir todos os capítulos</button>
+        <button class="btn secondary" onclick="toggleAll(false)">fechar todos</button>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="introdução e música">
+      <div class="card">
+        <div class="pad">
+          <h3 style="margin:0 0 10px; font-size:14px;">linha do tempo do nosso “a gente”</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.85; font-size:14px;">
+            tem histórias que não começam com fogos… começam com olhar na sala, risada no corredor,
+            e aquela sensação de “eu quero ficar mais perto”. a nossa foi assim.
+          </p>
+
+          <div class="timeline" role="list" aria-label="linha do tempo">
+            <div class="timelineRow" role="listitem">
+              <div class="tDate">escola</div>
+              <div class="tText">
+                a gente se conheceu na escola. no começo era presença, convivência… até virar curiosidade e vontade de estar junto.
+              </div>
+            </div>
+            <div class="timelineRow" role="listitem">
+              <div class="tDate">porto seguro</div>
+              <div class="tText">
+                na viagem de formatura com a <b>forma</b>, a gente se aproximou de verdade.
+                como se o mundo tivesse dado espaço pra nossa coragem aparecer.
+              </div>
+            </div>
+            <div class="timelineRow" role="listitem">
+              <div class="tDate">28/09</div>
+              <div class="tText">
+                a primeira vez que a gente ficou. e ali eu entendi: “pronto… agora já era. eu tô apaixonada.”
+              </div>
+            </div>
+            <div class="timelineRow" role="listitem">
+              <div class="tDate">15/01</div>
+              <div class="tText">
+                o dia que a gente começou a namorar. e o “a gente” virou <b>nós</b>, com nome, cuidado e futuro.
+              </div>
+            </div>
+          </div>
+
+          <div class="quote">
+            “se eu tivesse que escolher um lugar no mundo, eu escolhia você… e repetia a escolha todos os dias.”
+          </div>
+        </div>
+      </div>
+
+      <div class="card audioBox" id="musica">
+        <div class="pad">
+          <div class="audioTitle">
+            <h3>iris — goo goo dolls</h3>
+            <small>trilha sonora do nosso conto</small>
+          </div>
+
+          <!--
+            por direitos autorais, coloque um arquivo mp3 local:
+            - renomeie para: iris.mp3
+            - deixe na mesma pasta do html
+          -->
+          <audio id="player" controls preload="none">
+            <source src="iris.mp3" type="audio/mpeg">
+            seu navegador não suporta áudio.
+          </audio>
+
+          <div class="notice">
+            se o player não tocar, é só colocar um arquivo <b>iris.mp3</b> na mesma pasta deste html (ou trocar o link do áudio).
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" onclick="playPause()">tocar / pausar</button>
+            <button class="btn secondary" onclick="setVolume(0.35)">volume baixinho</button>
+            <button class="btn secondary" onclick="setVolume(0.75)">volume ok</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapters" id="capitulos" aria-label="capítulos do conto">
+
+      <article class="chapter" data-open="true">
+        <div class="chapterHead">
+          <div>
+            <h3>capítulo 1 — a escola: onde eu aprendi seu nome e comecei a te procurar</h3>
+            <div style="margin-top:6px; color:var(--muted); font-size:12px;">
+              bebelle percebe que tem gente que vira hábito bom
+            </div>
+          </div>
+          <span class="badge">bebelle</span>
+        </div>
+        <div class="chapterBody">
+          <p>
+            a gente se conheceu na escola. e é engraçado… porque na escola tudo parece “normal”:
+            a rotina, as aulas, as conversas. mas, no meio disso, você começou a brilhar pra mim de um jeito diferente.
+          </p>
+          <p>
+            eu não sabia explicar. eu só sabia que, quando você chegava perto, o dia ficava mais leve.
+            eu, bebelle, comecei a te procurar sem perceber: no corredor, na saída, em qualquer canto onde a vida te colocasse.
+          </p>
+          <div class="quote">foi ali que o meu coração começou a te chamar de “minha”.</div>
+        </div>
+      </article>
+
+      <article class="chapter" data-open="false">
+        <div class="chapterHead">
+          <div>
+            <h3>capítulo 2 — porto seguro: a viagem de formatura que virou ponto de virada</h3>
+            <div style="margin-top:6px; color:var(--muted); font-size:12px;">
+              a forma levou a gente… mas quem aproximou foi o destino
+            </div>
+          </div>
+          <span class="badge" style="background: rgba(34,197,94,.10);">nandinha</span>
+        </div>
+        <div class="chapterBody">
+          <p>
+            na viagem de formatura com a forma pra porto seguro, a gente se aproximou de verdade.
+            foi como se o barulho do mundo virasse só cenário… e o principal fosse nós duas descobrindo um lugar uma na outra.
+          </p>
+          <p>
+            eu lembro do seu olhar, do jeito que você me fazia rir, da coragem crescendo devagar.
+            e eu pensei: “eu quero isso. eu quero você. eu quero ficar.”
+          </p>
+          <div class="quote">porto seguro não foi só viagem… foi começo.</div>
+        </div>
+      </article>
+
+      <article class="chapter" data-open="false">
+        <div class="chapterHead">
+          <div>
+            <h3>capítulo 3 — 28/09: a primeira vez que a gente ficou (e tudo mudou)</h3>
+            <div style="margin-top:6px; color:var(--muted); font-size:12px;">
+              um beijo que virou certeza
+            </div>
+          </div>
+          <span class="badge">bebelle & nandinha</span>
+        </div>
+        <div class="chapterBody">
+          <p>
+            28/09. eu guardo essa data como quem guarda uma joia. porque foi a primeira vez que a gente ficou…
+            e eu senti, na hora, que não era “só ficar”. era abrir uma porta que eu não queria fechar nunca mais.
+          </p>
+          <p>
+            foi simples e gigante ao mesmo tempo. foi o tipo de beijo que diz coisas sem falar:
+            “eu gosto de você”, “eu quero você perto”, “vamos tentar?”
+          </p>
+          <div class="quote">e depois disso, meu coração começou a contar os dias em “antes” e “depois” de você.</div>
+        </div>
+      </article>
+
+      <article class="chapter" data-open="false">
+        <div class="chapterHead">
+          <div>
+            <h3>capítulo 4 — 15/01: o dia que o “a gente” virou “nós”</h3>
+            <div style="margin-top:6px; color:var(--muted); font-size:12px;">
+              quando namorar virou o jeito oficial de te amar
+            </div>
+          </div>
+          <span class="badge" style="background: rgba(168,85,247,.10);">para sempre</span>
+        </div>
+        <div class="chapterBody">
+          <p>
+            15/01. o dia que a gente começou a namorar. e eu juro: pareceu que o mundo encaixou.
+            porque o que eu sentia já era namoro por dentro… só faltava o nome.
+          </p>
+          <p>
+            e eu gosto do nosso “nós” porque ele é cuidado. é riso. é abraço apertado.
+            é a vida ficando bonita, mesmo quando o dia não ajuda.
+          </p>
+          <div class="quote">se eu tivesse que te escolher de novo, eu escolheria… e ainda diria “sim” mais rápido.</div>
+        </div>
+      </article>
+
+      <article class="chapter" data-open="false">
+        <div class="chapterHead">
+          <div>
+            <h3>capítulo 5 — a carta escondida dentro desse site</h3>
+            <div style="margin-top:6px; color:var(--muted); font-size:12px;">
+              um final que é começo
+            </div>
+          </div>
+          <span class="badge">bebelle</span>
+        </div>
+        <div class="chapterBody">
+          <p>
+            nandinha, obrigada por existir do seu jeito. por me amar com presença.
+            por me fazer sentir bonita, suficiente, e principalmente: amada.
+          </p>
+          <p>
+            eu não quero um amor perfeito. eu quero um amor nosso: sincero, engraçado, intenso,
+            com beijo que acalma e abraço que segura.
+          </p>
+          <p>
+            se algum dia você duvidar do tamanho do que eu sinto, abre esse site.
+            lê de novo. e lembra: você é meu lugar favorito no mundo.
+          </p>
+          <div class="quote">com amor, sempre. sua bebelle. 💜💚</div>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="gallery" id="fotos" aria-label="galeria de fotos">
+      <h3>nossas fotos 💜💚</h3>
+      <div class="notice" style="margin-bottom:12px;">
+        coloque estas imagens na mesma pasta do html (com esses nomes) pra aparecerem certinho.
+      </div>
+
+      <div class="photos">
+        <figure class="ph span-6 tall"><img src="IMG_3687.jpeg" alt="bebelle e nandinha - foto 1" /></figure>
+        <figure class="ph span-6 tall"><img src="CA783135-CB7A-4523-ABA0-A05014782B7F.jpeg" alt="bebelle e nandinha - foto 2" /></figure>
+
+        <figure class="ph span-4 square"><img src="2607CDEA-4365-4BA2-878C-44C7E3336F8B.jpeg" alt="bebelle e nandinha - foto 3" /></figure>
+        <figure class="ph span-8 wide"><img src="0A3FC746-F61F-439E-A65A-514A9DE769EE.jpeg" alt="bebelle e nandinha - foto 4" /></figure>
+
+        <figure class="ph span-8 wide"><img src="CE16D8C7-2A36-4764-B694-5E05B41B32EE.jpeg" alt="bebelle e nandinha - foto 5" /></figure>
+        <figure class="ph span-4 square"><img src="D0650CC1-41C7-44C0-BF20-FECCCD617485.jpeg" alt="bebelle e nandinha - foto 6" /></figure>
+
+        <figure class="ph span-6 tall"><img src="E0A4E68A-2381-418C-A1BC-FEE442B1A767.jpeg" alt="bebelle e nandinha - foto 7" /></figure>
+        <figure class="ph span-6 tall"><img src="B0D61AA4-D651-456D-8163-7ED5ED5E6F4F.jpeg" alt="bebelle e nandinha - foto 8" /></figure>
+
+        <figure class="ph span-6 tall"><img src="F779550B-E61A-4EC7-9B7F-3C1843457737.jpeg" alt="bebelle e nandinha - foto 9" /></figure>
+        <figure class="ph span-6 tall"><img src="A26D8DBD-2A21-4148-AE93-2772E0605D94.jpeg" alt="bebelle e nandinha - foto 10" /></figure>
+      </div>
+    </section>
+
+    <footer>
+      feito pra nandinha, com amor da bebelle. <br/>
+      dica: se quiser, dá pra trocar os textos dos capítulos por memórias específicas de vocês (uma frase interna, um apelido, um momento em porto seguro).
+    </footer>
+  </main>
+
+  <div class="floatingHeart" onclick="confettiHearts()" title="aperta pra chover amor">
+    <div class="heartIcon" aria-hidden="true">💚</div>
+    <span>aperta aqui</span>
+  </div>
+
+  <script>
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    document.querySelectorAll(".chapter").forEach(ch => {
+      const head = ch.querySelector(".chapterHead");
+      const body = ch.querySelector(".chapterBody");
+      const open = ch.getAttribute("data-open") === "true";
+      body.style.display = open ? "block" : "none";
+
+      head.style.cursor = "pointer";
+      head.addEventListener("click", () => {
+        const isOpen = body.style.display !== "none";
+        body.style.display = isOpen ? "none" : "block";
+        ch.setAttribute("data-open", (!isOpen).toString());
+      });
+    });
+
+    function toggleAll(open){
+      document.querySelectorAll(".chapter").forEach(ch => {
+        const body = ch.querySelector(".chapterBody");
+        body.style.display = open ? "block" : "none";
+        ch.setAttribute("data-open", open.toString());
+      });
+    }
+
+    const player = document.getElementById("player");
+    function playPause(){
+      if(!player) return;
+      if(player.paused) player.play().catch(()=>{});
+      else player.pause();
+    }
+    function setVolume(v){
+      if(!player) return;
+      player.volume = Math.max(0, Math.min(1, v));
+    }
+
+    function confettiHearts(){
+      const count = 18;
+      for(let i=0;i<count;i++){
+        const s = document.createElement("span");
+        s.textContent = (i%2===0) ? "💜" : "💚";
+        s.style.position="fixed";
+        s.style.left = (Math.random()*100) + "vw";
+        s.style.bottom = "-20px";
+        s.style.fontSize = (14 + Math.random()*18) + "px";
+        s.style.zIndex = 9999;
+        s.style.filter = "drop-shadow(0 10px 20px rgba(0,0,0,.35))";
+        s.style.transition = "transform 2.2s ease, opacity 2.2s ease";
+        document.body.appendChild(s);
+
+        const x = (Math.random()*2-1) * 120;
+        const y = - (420 + Math.random()*360);
+        const r = (Math.random()*2-1) * 30;
+
+        requestAnimationFrame(() => {
+          s.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+          s.style.opacity = "0";
+        });
+
+        setTimeout(() => s.remove(), 2300);
+      }
+    }
+  </script>
+</body>
+</html>
